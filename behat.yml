@@ -8,6 +8,7 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
         - DrupalFieldContext
+        - DrupalUserContext
       filters:
         tags: "~@skipci"
   extensions:

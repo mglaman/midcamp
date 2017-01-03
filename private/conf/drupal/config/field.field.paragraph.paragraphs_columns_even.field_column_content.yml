@@ -1,0 +1,38 @@
+uuid: 34896b02-0307-4300-aea5-99335076fbd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_column_content
+    - paragraphs.paragraphs_type.paragraphs_columns_even
+    - paragraphs.paragraphs_type.paragraphs_image
+    - paragraphs.paragraphs_type.paragraphs_text
+  module:
+    - entity_reference_revisions
+id: paragraph.paragraphs_columns_even.field_column_content
+field_name: field_column_content
+entity_type: paragraph
+bundle: paragraphs_columns_even
+label: 'Column Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      paragraphs_image: paragraphs_image
+      paragraphs_text: paragraphs_text
+    target_bundles_drag_drop:
+      paragraphs_image:
+        enabled: true
+        weight: -7
+      paragraphs_text:
+        enabled: true
+        weight: -6
+      paragraphs_columns_even:
+        weight: -5
+        enabled: false
+field_type: entity_reference_revisions

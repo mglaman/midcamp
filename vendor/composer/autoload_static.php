@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1
+class ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -287,15 +287,15 @@ class ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1
         ),
         'Drupal\\Driver\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/drivers/lib/Drupal/Driver',
+            0 => __DIR__ . '/../..' . '/docroot/drivers/lib/Drupal/Driver',
         ),
         'Drupal\\Core\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Core',
+            0 => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core',
         ),
         'Drupal\\Component\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component',
+            0 => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component',
         ),
         'DrupalComposer\\DrupalScaffold\\' => 
         array (
@@ -588,13 +588,13 @@ class ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1
         'DocBlox_Parallel_Manager' => __DIR__ . '/..' . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/Manager.php',
         'DocBlox_Parallel_Worker' => __DIR__ . '/..' . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/Worker.php',
         'DocBlox_Parallel_WorkerPipe' => __DIR__ . '/..' . '/phing/phing/classes/phing/contrib/DocBlox/Parallel/WorkerPipe.php',
-        'Drupal' => __DIR__ . '/../..' . '/core/lib/Drupal.php',
-        'Drupal\\Component\\Utility\\Timer' => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Utility/Timer.php',
-        'Drupal\\Component\\Utility\\Unicode' => __DIR__ . '/../..' . '/core/lib/Drupal/Component/Utility/Unicode.php',
-        'Drupal\\Core\\Database\\Database' => __DIR__ . '/../..' . '/core/lib/Drupal/Core/Database/Database.php',
-        'Drupal\\Core\\DrupalKernel' => __DIR__ . '/../..' . '/core/lib/Drupal/Core/DrupalKernel.php',
-        'Drupal\\Core\\DrupalKernelInterface' => __DIR__ . '/../..' . '/core/lib/Drupal/Core/DrupalKernelInterface.php',
-        'Drupal\\Core\\Site\\Settings' => __DIR__ . '/../..' . '/core/lib/Drupal/Core/Site/Settings.php',
+        'Drupal' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal.php',
+        'Drupal\\Component\\Utility\\Timer' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component/Utility/Timer.php',
+        'Drupal\\Component\\Utility\\Unicode' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component/Utility/Unicode.php',
+        'Drupal\\Core\\Database\\Database' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Database/Database.php',
+        'Drupal\\Core\\DrupalKernel' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/DrupalKernel.php',
+        'Drupal\\Core\\DrupalKernelInterface' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/DrupalKernelInterface.php',
+        'Drupal\\Core\\Site\\Settings' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Site/Settings.php',
         'DummyPDOQuerySplitter' => __DIR__ . '/..' . '/phing/phing/classes/phing/tasks/ext/pdo/DummyPDOQuerySplitter.php',
         'EchoProperties' => __DIR__ . '/..' . '/phing/phing/classes/phing/tasks/system/EchoProperties.php',
         'EchoTask' => __DIR__ . '/..' . '/phing/phing/classes/phing/tasks/system/EchoTask.php',
@@ -1240,11 +1240,11 @@ class ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit972b2d4f894c48c28e2949958a0f91a1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInitc09d745886a8816eba9bc93d09a7b7fc::$classMap;
 
         }, null, ClassLoader::class);
     }

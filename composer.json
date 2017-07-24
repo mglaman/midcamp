@@ -63,9 +63,7 @@
         "drush/drush": "^8.0",
         "geerlingguy/drupal-vm": "^3.5",
         "palantirnet/palantir-behat-extension": "dev-drupal8-file-revisited",
-        "phpmd/phpmd": "^2.4",
-        "sculpin/sculpin": "~2.0",
-        "sculpin/sculpin-theme-composer-plugin": "dev-master as 1.0.0"
+        "phpmd/phpmd": "^2.4"
     },
     "suggest": {
         "cweagans/composer-patches": "Try ^1.0. Apply patches to packages, especially Drupal.org contrib."

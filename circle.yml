@@ -11,8 +11,8 @@ dependencies:
     - sudo cp $HOME/$CIRCLE_PROJECT_REPONAME/conf/apache.circle.conf /etc/apache2/sites-available/default
     - sudo sed -e "s?%PROJECT_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo a2enmod rewrite
-    - echo "sendmail_path=/bin/true" >> ~/.phpenv/versions/$(phpenv global)/etc/php.ini
-    - echo "memory_limit=-1" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini
+    - echo "sendmail_path=/bin/true" > /opt/circleci/php/$(phpenv global)/etc/conf.d/sendmail.ini
+    - echo "memory_limit=-1" > /opt/circleci/php/$(phpenv global)/etc/conf.d/memory.ini
     - sudo service apache2 restart
 
 

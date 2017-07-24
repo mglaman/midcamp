@@ -1,56 +1,11 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+# The absolute path to the root directory of the project. Both Drupal VM and
+# the config file need to be contained within this path.
+ENV['DRUPALVM_PROJECT_ROOT'] = "#{__dir__}"
+# The relative path from the project root to the config directory where you
+# placed your config.yml file.
+ENV['DRUPALVM_CONFIG_DIR'] = "conf/Vagrant"
+# The relative path from the project root to the directory where Drupal VM is located.
+ENV['DRUPALVM_DIR'] = "vendor/geerlingguy/drupal-vm"
 
-%w{ vagrant-hostmanager vagrant-auto_network }.each do |plugin|
-    unless Vagrant.has_plugin?(plugin)
-        raise "#{plugin} plugin is not installed. Please install with: vagrant plugin install #{plugin}"
-    end
-end
-
-# tunables
-project     = 'midcamp'
-hostname    = "#{project}.local"
-# end tunables
-
-Vagrant.configure(2) do |config|
-
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-
-    config.vm.define "#{project}" do |box|
-
-        box.vm.box = "palantir/drupalbox"
-        box.vm.box_version = ">= 0.2.3, < 1.0.0"
-
-        box.vm.provider "vmware_fusion" do |v|
-            v.vmx["memsize"] = "2048"
-        end
-
-        box.vm.provider "virtualbox" do |vb|
-            vb.customize ["modifyvm", :id, "--memory", "2048"]
-        end
-
-        box.vm.hostname = "#{hostname}"
-        box.vm.network :private_network, :auto_network => true
-
-        box.vm.synced_folder ".", "/vagrant", :disabled => true
-        box.vm.synced_folder ".", "/var/www/#{hostname}", :nfs => true
-
-        box.ssh.forward_agent = true
-
-    end
-
-    config.vm.provision "ansible" do |ansible|
-        ansible.playbook = "provisioning/midcamp.yml"
-
-        ansible.groups = {
-            "all:children" => ["#{project}"]
-        }
-
-        ansible.extra_vars = {
-            "project" => project,
-            "hostname" => hostname
-        }
-    end
-
-end
+# Load the real Vagrantfile
+load "#{__dir__}/#{ENV['DRUPALVM_DIR']}/Vagrantfile"

@@ -8,8 +8,8 @@ dependencies:
   pre:
     - composer config --global github-oauth.github.com $GITHUB_TOKEN
     - export PATH="$PATH:~/midcamp/vendor/bin"
-    - cp $HOME/$CIRCLE_PROJECT_REPONAME/conf/apache.circle.conf /etc/apache2/sites-available/default
-    - sed -e "s?%PROJECT_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+    - sudo cp $HOME/$CIRCLE_PROJECT_REPONAME/conf/apache.circle.conf /etc/apache2/sites-available/default
+    - sudo sed -e "s?%PROJECT_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo a2enmod rewrite
     - echo "sendmail_path=/bin/true" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - echo "memory_limit=-1" > ~/.phpenv/versions/$(phpenv global)/etc/conf.d/memory.ini

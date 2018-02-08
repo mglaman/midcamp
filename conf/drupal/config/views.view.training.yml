@@ -1,22 +1,25 @@
-uuid: 0a244caa-853c-4f80-9e11-53172a316e4c
+uuid: 39a2294d-5961-4835-96c2-72fb81cc919d
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_people
+    - field.storage.node.body
+    - field.storage.node.field_registration_link
     - field.storage.node.field_track
     - node.type.topic
-    - taxonomy.vocabulary.session_tracks
+    - node.type.training
     - taxonomy.vocabulary.topic_type
   content:
     - 'taxonomy_term:topic_type:39f8a394-f9fc-45ae-85a2-46aabfd3212f'
   module:
+    - link
     - node
     - taxonomy
+    - text
     - user
-id: sessions
-label: Sessions
+id: training
+label: 'Training Day'
 module: views
 description: ''
 tag: ''
@@ -279,35 +282,16 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  page_1:
-    display_plugin: page
-    id: page_1
-    display_title: Submitted
-    position: 1
-    display_options:
-      display_extenders: {  }
-      path: submitted-sessions
-      display_description: ''
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url.query_args
-        - user
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
   page_2:
     display_plugin: page
     id: page_2
-    display_title: Accepted
+    display_title: 'Training Day'
     position: 2
     display_options:
       display_extenders: {  }
       display_description: ''
-      path: accepted-sessions
-      title: 'Accepted Sessions'
+      path: training
+      title: 'Full Day Training Sessions'
       defaults:
         title: false
         style: false
@@ -460,10 +444,10 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-        field_people:
-          id: field_people
-          table: node__field_people
-          field: field_people
+        body:
+          id: body
+          table: node__body
+          field: body
           relationship: none
           group_type: group
           admin_label: ''
@@ -496,7 +480,7 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: div
+          element_type: ''
           element_class: ''
           element_label_type: ''
           element_label_class: ''
@@ -508,11 +492,78 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: text_summary_or_trimmed
           settings:
-            link: false
-          group_column: target_id
+            trim_length: 300
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_registration_link:
+          id: field_registration_link
+          table: node__field_registration_link
+          field: field_registration_link
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a class="button" href={{ field_registration_link__uri }}>Register Today</a>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: uri
+          type: link
+          settings:
+            trim_length: 80
+            url_only: false
+            url_plain: false
+            rel: '0'
+            target: '0'
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -566,117 +617,12 @@ display:
           id: type
           table: node_field_data
           field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
           value:
-            topic: topic
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          group: 1
-        field_topic_type_target_id:
-          id: field_topic_type_target_id
-          table: node__field_topic_type
-          field: field_topic_type_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value:
-            14: 14
-          group: 1
-          exposed: false
-          expose:
-            operator_id: field_topic_type_target_id_op
-            label: 'Topic Type'
-            description: ''
-            use_operator: false
-            operator: field_topic_type_target_id_op
-            identifier: field_topic_type_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              speaker: '0'
-              content_editor: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: topic_type
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
-        field_track_target_id:
-          id: field_track_target_id
-          table: node__field_track
-          field: field_track_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_track_target_id_op
-            label: 'Session Track'
-            description: ''
-            use_operator: false
-            operator: field_track_target_id_op
-            identifier: field_track_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              speaker: '0'
-              content_editor: '0'
-              administrator: '0'
-              sponsor: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: session_tracks
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
-        field_accepted_confirmed_value:
-          id: field_accepted_confirmed_value
-          table: node__field_accepted_confirmed
-          field: field_accepted_confirmed_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
+            training: training
           group: 1
           exposed: false
           expose:
@@ -691,6 +637,7 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -703,7 +650,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: boolean
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
       filter_groups:
         operator: AND
         groups:
@@ -719,7 +668,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: '<p>Below is the list of accepted and confirmed sessions. We still have a handful of sessions to confirm and will post the full session schedule shortly. Thanks to all who submitted!</p>'
+            value: "<p>MidCamp will offer professional full day training on Thursday, March 8th to anyone interested in gaining additional hands-on knowledge on a variety of hot Drupal topics by world-class Drupal trainers.\n\n<p>Trainings are not included in the cost of a MidCamp registration. We recommend registering in advance as trainings tend to sell out. Lunch will be served and coffee will be available. \n\n<p>Registration 8 am. Trainings 9 am - 5 pm."
             format: basic_html
           plugin_id: text
       empty:
@@ -756,11 +705,10 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_people'
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_registration_link'
         - 'config:field.storage.node.field_track'

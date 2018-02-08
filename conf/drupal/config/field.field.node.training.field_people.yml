@@ -1,18 +1,18 @@
-uuid: 0221ebb3-18cd-4aa1-be66-45997252d47b
+uuid: 57cb4e16-9032-4ce6-97df-507989bfa689
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_people
-    - node.type.topic
-id: node.topic.field_people
+    - node.type.training
+id: node.training.field_people
 field_name: field_people
 entity_type: node
-bundle: topic
-label: Speakers
-description: 'The people who will present or facilitate this topic. This must be a user on the site. '
+bundle: training
+label: Trainers
+description: 'The people who will lead this training. This must be a user on the site. '
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

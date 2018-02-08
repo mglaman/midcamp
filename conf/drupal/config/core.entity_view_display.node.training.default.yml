@@ -1,22 +1,23 @@
-uuid: 27420acf-2177-44da-b693-57d8a0b416b3
+uuid: 757a5966-c74a-4294-9427-01ac1069dddb
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.topic.body
-    - field.field.node.topic.field_accepted_confirmed
-    - field.field.node.topic.field_event
-    - field.field.node.topic.field_meta_tags
-    - field.field.node.topic.field_people
-    - field.field.node.topic.field_topic_type
-    - field.field.node.topic.field_track
-    - node.type.topic
+    - field.field.node.training.body
+    - field.field.node.training.field_accepted_confirmed
+    - field.field.node.training.field_event
+    - field.field.node.training.field_meta_tags
+    - field.field.node.training.field_people
+    - field.field.node.training.field_registration_link
+    - field.field.node.training.field_track
+    - node.type.training
   module:
+    - link
     - text
     - user
-id: node.topic.default
+id: node.training.default
 targetEntityType: node
-bundle: topic
+bundle: training
 mode: default
 content:
   body:
@@ -27,20 +28,24 @@ content:
     third_party_settings: {  }
     region: content
   field_people:
-    type: entity_reference_label
     weight: 0
-    region: content
     label: above
     settings:
       link: false
     third_party_settings: {  }
-  field_topic_type:
-    weight: 3
-    label: inline
-    settings:
-      link: false
-    third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_registration_link:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    type: link
     region: content
   field_track:
     weight: 2

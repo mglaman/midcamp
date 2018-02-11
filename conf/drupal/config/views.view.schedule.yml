@@ -1,20 +1,19 @@
-uuid: 299f4108-aa40-42f7-a6d2-0cb03aae3ddc
+uuid: ac86e172-dc2e-4fda-8230-b0c53900574c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_accepted_confirmed
     - field.storage.node.field_people
-    - taxonomy.vocabulary.topic_type
-    - user.role.administrator
-  content:
-    - 'taxonomy_term:topic_type:39f8a394-f9fc-45ae-85a2-46aabfd3212f'
+    - field.storage.node.field_schedule_location
+    - field.storage.node.field_schedule_time
+    - field.storage.node.field_track
   module:
+    - datetime
+    - datetime_range
     - node
-    - taxonomy
     - user
-id: session_selection
-label: 'Session Selection'
+id: schedule
+label: Schedule
 module: views
 description: ''
 tag: ''
@@ -29,10 +28,9 @@ display:
     position: 0
     display_options:
       access:
-        type: role
+        type: perm
         options:
-          role:
-            administrator: administrator
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
@@ -57,129 +55,30 @@ display:
       pager:
         type: none
         options:
+          items_per_page: 0
           offset: 0
       style:
-        type: table
+        type: default
         options:
-          grouping: {  }
-          row_class: ''
+          grouping:
+            -
+              field: field_schedule_time
+              rendered: true
+              rendered_strip: false
+          row_class: schedule__teaser
           default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            title: title
-            uid: uid
-            body: body
-            field_people: field_people
-            field_track: field_track
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            uid:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            body:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_people:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_track:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
       row:
         type: fields
-        options:
-          inline: {  }
-          separator: ''
-          hide_empty: false
-          default_field_elements: true
       fields:
-        node_bulk_form:
-          id: node_bulk_form
-          table: node
-          field: node_bulk_form
+        field_schedule_time:
+          id: field_schedule_time
+          table: node__field_schedule_time
+          field: field_schedule_time
           relationship: none
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          action_title: Action
-          include_exclude: include
-          selected_actions:
-            - topic_accept_confirm
-          entity_type: node
-          plugin_id: node_bulk_form
-        field_accepted_confirmed:
-          id: field_accepted_confirmed
-          table: node__field_accepted_confirmed
-          field: field_accepted_confirmed
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -220,12 +119,75 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: boolean
+          type: daterange_default
           settings:
-            format: unicode-yes-no
-            format_custom_true: ''
-            format_custom_false: ''
+            timezone_override: America/Chicago
+            format_type: time_only
+            separator: to
           group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_track:
+          id: field_track
+          table: node__field_track
+          field: field_track
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: div
+          element_class: schedule__track
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -243,7 +205,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Title
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -272,14 +234,14 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
-          element_class: ''
+          element_type: h4
+          element_class: schedule__title
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -287,7 +249,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: false
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -308,7 +270,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Presenters
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -337,14 +299,14 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
+          element_type: div
           element_class: ''
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -364,14 +326,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
+        field_schedule_location:
+          id: field_schedule_location
+          table: node__field_schedule_location
+          field: field_schedule_location
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Authored by'
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -400,14 +362,14 @@ display:
             trim: false
             preserve_tags: ''
             html: false
-          element_type: ''
-          element_class: ''
+          element_type: div
+          element_class: schedule__room
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -417,8 +379,7 @@ display:
           settings:
             link: false
           group_column: target_id
-          group_columns:
-            target_id: target_id
+          group_columns: {  }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
@@ -427,60 +388,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: uid
           plugin_id: field
-        view_node:
-          id: view_node
-          table: node
-          field: view_node
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Link to Content'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          text: view
-          entity_type: node
-          plugin_id: entity_link
       filters:
         status:
           value: '1'
@@ -493,170 +401,193 @@ display:
           expose:
             operator: ''
           group: 1
-        field_topic_type_target_id:
-          id: field_topic_type_target_id
-          table: node__field_topic_type
-          field: field_topic_type_target_id
+        field_schedule_time_value:
+          id: field_schedule_time_value
+          table: node__field_schedule_time
+          field: field_schedule_time_value
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: between
           value:
-            14: 14
+            min: '2018-03-09 00:00:00'
+            max: '2018-03-09 23:59:59'
+            value: ''
+            type: date
           group: 1
-          exposed: true
-          expose:
-            operator_id: field_topic_type_target_id_op
-            label: 'Topic Type'
-            description: ''
-            use_operator: false
-            operator: field_topic_type_target_id_op
-            identifier: field_topic_type_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              speaker: '0'
-              content_editor: '0'
-              administrator: '0'
-              sponsor: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: topic_type
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
-        field_accepted_confirmed_value:
-          id: field_accepted_confirmed_value
-          table: node__field_accepted_confirmed
-          field: field_accepted_confirmed_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: All
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Accepted and confirmed'
-            description: ''
-            use_operator: false
-            operator: field_accepted_confirmed_value_op
-            identifier: field_accepted_confirmed_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              speaker: '0'
-              content_editor: '0'
-              administrator: '0'
-              sponsor: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: boolean
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          order: ASC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          relationship: none
-          group_type: group
-          admin_label: ''
           exposed: false
           expose:
+            operator_id: ''
             label: ''
-          granularity: second
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: datetime
+      sorts: {  }
+      title: 'Camp Schedule'
       header:
-        result:
-          id: result
+        area:
+          id: area
           table: views
-          field: result
+          field: area
           relationship: none
           group_type: group
           admin_label: ''
           empty: false
-          content: 'Displaying @start - @end of @total'
-          plugin_id: result
+          tokenize: false
+          content:
+            value: "<div class=\"schedule__nav\">\n      <a href=\"/training\">Thursday</a> | <a href=\"/schedule/friday\">Friday</a> | <a href=\"/schedule/saturday\">Saturday</a><!-- | <a href=\"#\">Sunday</a-->\n</div>\n<h2>Friday, March 9, 2018</h2>"
+            format: full_html
+          plugin_id: text
       footer: {  }
       empty: {  }
-      relationships:
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: author
-          required: false
-          entity_type: node
-          entity_field: uid
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      group_by: false
-      title: 'Select Accepted and Confirmed Sessions'
+      css_class: schedule
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.node.field_accepted_confirmed'
         - 'config:field.storage.node.field_people'
+        - 'config:field.storage.node.field_schedule_location'
+        - 'config:field.storage.node.field_schedule_time'
+        - 'config:field.storage.node.field_track'
   page_1:
     display_plugin: page
     id: page_1
-    display_title: Page
-    position: 2
+    display_title: Friday
+    position: 1
     display_options:
       display_extenders: {  }
-      path: admin/sessions-select
+      path: schedule/friday
+      display_description: ''
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
-        - 'config:field.storage.node.field_accepted_confirmed'
         - 'config:field.storage.node.field_people'
+        - 'config:field.storage.node.field_schedule_location'
+        - 'config:field.storage.node.field_schedule_time'
+        - 'config:field.storage.node.field_track'
+  page_2:
+    display_plugin: page
+    id: page_2
+    display_title: Saturday
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: schedule/saturday
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<div class=\"schedule__nav\">\n      <a href=\"/training\">Thursday</a> | <a href=\"/schedule/friday\">Friday</a> | <a href=\"/schedule/saturday\">Saturday</a><!-- | <a href=\"#\">Sunday</a-->\n</div>\n<h2>Saturday, March 10, 2018</h2>"
+            format: full_html
+          plugin_id: text
+      defaults:
+        header: false
+        filters: false
+        filter_groups: false
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        field_schedule_time_value:
+          id: field_schedule_time_value
+          table: node__field_schedule_time
+          field: field_schedule_time_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: between
+          value:
+            min: '2018-03-10 00:00:00'
+            max: '2018-03-10 23:59:59'
+            value: ''
+            type: date
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: datetime
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      display_description: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_people'
+        - 'config:field.storage.node.field_schedule_location'
+        - 'config:field.storage.node.field_schedule_time'
+        - 'config:field.storage.node.field_track'
